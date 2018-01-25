@@ -19,4 +19,13 @@ function create() {
 }
 
 function update() {
+	var graphics = game.add.graphics(0, 0);
+
+	// graphics.lineStyle(2, 0xffd900, 1);
+	
+	stages.forEach(stage => {
+		graphics.beginFill(0x00FF00, 1);
+		graphics.drawCircle(stage.x, stage.y, stage.numPeople / 100);		
+	});
+
 }
