@@ -12,10 +12,13 @@ function preload() {
 
 function create() {
 	game.add.sprite(0, 0, MAP_IMAGE);
-	person = game.add.sprite(0, 0, PERSON_SPRITE);
+	person = game.add.sprite(stages[1].x, stages[1].y, PERSON_SPRITE);
 	game.physics.arcade.enable(person);
-	person.body.velocity.x = 5;
-	person.body.velocity.y = 5;
+	var killTween = game.add.tween(person).to({x: stages[0].x, y: stages[0].y}, 2000, Phaser.Easing.Quintic.InOut);
+	//killTween.to({x:0,y:0}, 200, Phaser.Easing.Linear.None);
+	killTween.start();
+	//person.body.velocity.x = 15;
+	//person.body.velocity.y = 15;
 }
 
 function update() {
@@ -24,8 +27,7 @@ function update() {
 	// graphics.lineStyle(2, 0xffd900, 1);
 	
 	stages.forEach(stage => {
-		graphics.beginFill(0x00FF00, 1);
+		graphics.beginFill(0x1C961E, 1);
 		graphics.drawCircle(stage.x, stage.y, stage.numPeople / 100);		
 	});
-
 }
