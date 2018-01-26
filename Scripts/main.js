@@ -14,6 +14,8 @@ function preload() {
 function create() {
 	game.add.sprite(0, 0, MAP_IMAGE);
 	graphics = game.add.graphics(0, 0);
+	graphics.inputEnabled = true;
+	graphics.input.useHandCursor = true;
 	for (i = 0; i < 100; i++) {
 		var randomStage = Math.floor((Math.random() * 6));
 		people.push(new Person(game, stages[randomStage]));
@@ -40,13 +42,11 @@ function update() {
 		graphics.drawCircle(stage.x, stage.y, stage.numPeople);	
 		graphics.endFill();
 	});
-/*
-	graphics.inputEnabled = true;
-	graphics.input.useHandCursor = true;
+
 	graphics.events.onInputUp.add(onClick, this);
 
 	function onClick(target, pointer){
 		console.log("hooray");
 	}
-	*/
+
 }
