@@ -1,4 +1,4 @@
-var game = new Phaser.Game(998, 700, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(998, 700, Phaser.AUTO, 'gameHolder', { preload: preload, create: create, update: update });
 
 var PERSON_SPRITE = 'person';
 var MAP_IMAGE = 'map';
