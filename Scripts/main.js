@@ -115,7 +115,7 @@ var getCurrentDayJourneys = function() {
 	var thisPersonJourneys, numThisPersonJourneys;
 	for(var i = 0; i < numPeopleJourneys; i++) {
 		thisPersonJourneys = peopleJourneys[i].days.splice(0, 1)[0];
-		if(thisPersonJourneys.length) {
+		if(thisPersonJourneys && thisPersonJourneys.length) {
 			numThisPersonJourneys = thisPersonJourneys.length;
 			for(var j = 0; j < numThisPersonJourneys; j++) {
 				currentDayJourneys.push(thisPersonJourneys[j]);
