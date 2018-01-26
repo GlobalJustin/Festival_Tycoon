@@ -14,14 +14,16 @@ function create() {
 	game.add.sprite(0, 0, MAP_IMAGE);
 
 	for (i = 0; i < 100; i++) {
-		people.push(new Person(game, stages[i % 6]));
+		var randomStage = Math.floor((Math.random() * 6));
+		people.push(new Person(game, stages[randomStage]));
 	}
 
 }
 
 function start() {
 	for (i = 0; i < 100; i++) {
-		people[i].moveToStage(stages[i % 5], 2000);
+		var randomStage = Math.floor((Math.random() * 6));
+		people[i].moveToStage(stages[randomStage], Math.random() * 10000);
 	}
 }
 
