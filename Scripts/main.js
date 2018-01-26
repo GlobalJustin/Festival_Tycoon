@@ -190,7 +190,7 @@ function update() {
 	
 	stages.forEach(stage => {
 		graphics.beginFill(0x1C961E, 1);
-		graphics.drawCircle(stage.x, stage.y, stage.numPeople / 2);	
+		graphics.drawCircle(stage.stageX, stage.stageY, stage.numPeople / 4);	
 		graphics.endFill();
 	});
 	
