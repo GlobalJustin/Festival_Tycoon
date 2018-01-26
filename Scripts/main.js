@@ -9,6 +9,8 @@ var graphics;
 var play = 0;
 var started = false;
 
+var randomPeopleCount = 500;
+
 function preload() {
 	game.load.image(MAP_IMAGE, 'Images/A4-SB17-MAP.png');
     game.load.image(PERSON_SPRITE, 'Images/Person_Sprite.png');
@@ -19,7 +21,7 @@ function create() {
 	graphics = game.add.graphics(0, 0);
 	graphics.inputEnabled = true;
 	graphics.input.useHandCursor = true;
-	for (i = 0; i < 100; i++) {
+	for (i = 0; i < randomPeopleCount; i++) {
 		var randomStage = Math.floor((Math.random() * 6));
 		people.push(new Person(game, stages[randomStage]));
 	}
@@ -87,9 +89,9 @@ function start() {
 		started = true;
 		play = 1;
 		if (play == 0);
-		for (i = 0; i < 100; i++) {
+		for (i = 0; i < randomPeopleCount; i++) {
 			var randomStage = Math.floor((Math.random() * 6));
-			people[i].moveToStage(stages[randomStage], Math.random() * 10000);
+			people[i].moveToStage(stages[randomStage], Math.random() * 20000);
 		}
 		$("#playButton").attr("src","Images/Pause_Sprite.png");
 	} else {
@@ -109,7 +111,7 @@ function update() {
 	graphics.clear();
 	stages.forEach(stage => {
 		graphics.beginFill(0x1C961E, 1);
-		graphics.drawCircle(stage.x, stage.y, stage.numPeople);	
+		graphics.drawCircle(stage.x, stage.y, stage.numPeople / 2);	
 		graphics.endFill();
 	});
 }
