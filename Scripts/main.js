@@ -6,6 +6,9 @@ var MAP_IMAGE = 'map';
 var people = [];
 var graphics;
 
+var play = 0;
+var started = false;
+
 function preload() {
 	game.load.image(MAP_IMAGE, 'Images/A4-SB17-MAP.png');
     game.load.image(PERSON_SPRITE, 'Images/Person_Sprite.png');
@@ -34,6 +37,7 @@ function create() {
 			//do whatever with the result    
 			if (inside) {
 				$("#stage").text(stage.name);
+				$("#stage").append("<img class='stageImage' src='Images/" + stage.imageName + "'/>");
 			
 				var stagePerformances = performances.filter(function (item) {
 					return item.PERFORMANCE_LOCATION == stage.dataName;
@@ -79,9 +83,25 @@ function create() {
 }
 
 function start() {
-	for (i = 0; i < 100; i++) {
-		var randomStage = Math.floor((Math.random() * 6));
-		people[i].moveToStage(stages[randomStage], Math.random() * 10000);
+	if (started == false) {
+		started = true;
+		play = 1;
+		if (play == 0);
+		for (i = 0; i < 100; i++) {
+			var randomStage = Math.floor((Math.random() * 6));
+			people[i].moveToStage(stages[randomStage], Math.random() * 10000);
+		}
+		$("#playButton").attr("src","Images/Pause_Sprite.png");
+	} else {
+		if (play == 0) {
+			game.paused = false;
+			play = 1;
+			$("#playButton").attr("src","Images/Pause_Sprite.png");
+		} else {
+			game.paused = true;
+			play = 0;
+			$("#playButton").attr("src","Images/Play_Sprite.png");
+		}
 	}
 }
 

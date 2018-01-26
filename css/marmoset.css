@@ -4,10 +4,23 @@
 }
 
 .right-col {
-    padding: 5px;
-    margin: 5px;
+    padding: 20px;
+    margin: 20px;
+}
+
+.row {
+    margin-top: 40px;
 }
 
 body {
     color: white;
+}
+
+.stageImage {
+    widows: 200px;
+    height: 100px;
+}
+
+.logo {
+    margin-left: 16px;
 }

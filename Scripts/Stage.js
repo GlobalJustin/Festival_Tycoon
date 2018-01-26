@@ -1,4 +1,4 @@
-var Stage = function(name, dataName, x, y) {
+var Stage = function(name, dataName, imageName, x, y) {
 	this.name = name;
 	this.x = x;
 	this.y = y;
@@ -6,6 +6,7 @@ var Stage = function(name, dataName, x, y) {
 	this.personX = this.x - 16;
 	this.personY = this.y - 16;
 	this.dataName = dataName;
+	this.imageName = imageName;
 };
 
 Stage.prototype.addPerson = function() {
