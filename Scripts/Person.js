@@ -1,18 +1,12 @@
-var Person = function(game, initialStage) {
-    this.game = game;
-    this.personSprite = game.add.sprite(initialStage.personX, initialStage.personY, PERSON_SPRITE);
-    game.physics.arcade.enable(this.personSprite);
-    this.stage = initialStage;
-    this.stage.addPerson();
+var Person = function(rfid, firstJourney) {
+	this.rfid = rfid;
+	this.dayJourneys = [];
+	this.journeys = [ firstJourney ];
 };
 
-Person.prototype.moveToStage = function(stage, duration) {
-    this.stage.removePerson();
-    var stageTween = game.add.tween(this.personSprite).to({x: stage.personX, y: stage.personY}, duration, Phaser.Easing.Sinusoidal.InOut);	
-    stageTween.onComplete.add(addToStage, this);
-    stageTween.start();
-    
-    function addToStage() {
-        stage.addPerson();
-    }
-}
+Person.prototype.toString = function() {
+	return "{" +
+		"\n\trfid: \"" + this.rfid + "\"," +
+		"\n\tdays: [\n\t\t" + this.dayJourneys.join(",\n\t\t") + "\n\t]" +
+		"\n}"
+};

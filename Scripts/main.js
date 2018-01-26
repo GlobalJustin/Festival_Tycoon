@@ -3,8 +3,114 @@ var game = new Phaser.Game(998, 700, Phaser.AUTO, 'gameHolder', { preload: prelo
 var PERSON_SPRITE = 'person';
 var MAP_IMAGE = 'map';
 
+var person, graphics;
 var people = [];
-var graphics;
+
+var mapGateToStage = function(gate) {
+	switch(gate) {
+		case "Arena IN":
+		case "Arena OUT":
+			return "The Arena";
+		case "Berghof IN":
+		case "Berghof OUT":
+			return "The Fun Hous";
+		case "Bruck IN":
+		case "Bruck OUT":
+			return "The Bruck'n Stadl";
+		case "Forest 1 IN":
+		case "Forest 1 OUT":
+		case "Forest 2 IN":
+		case "Forest 2 OUT":
+			return "The Forest Club";
+		case "Racket Main IN":
+		case "Racket Main OUT":
+		case "Racket VIP IN":
+		case "Racket VIP OUT":
+			return "The Racket Club";
+		case "Street 1 IN":
+		case "Street 1 OUT":
+		case "Street 2 IN":
+		case "Street 2 OUT":
+		case "Street 3 IN":
+		case "Street 3 OUT":
+			return "The Street Party";
+	}
+};
+
+var mapDateTimeToGameTime = function(dateTime) {
+	var date = new Date(dateTime).valueOf();
+	for(var i = 0; i < numDays; i++) {
+		var day = days[i];
+		if(date >= day.start && date <= day.end) {
+			return new GameTime(i, (date - day.start) / 60000);
+		}
+	}
+	throw new Error('Unexpected date: ' + dateTime);
+};
+
+var convertJourney = function(journey) {
+	var startLocation = journey.start_location && mapGateToStage(journey.start_location);
+	var endLocation = journey.end_location && mapGateToStage(journey.end_location);
+	var startTime = journey.start_location && mapDateTimeToGameTime(journey.start_datetime);
+	var endTime = journey.end_location && mapDateTimeToGameTime(journey.end_datetime);
+	return new Journey(startLocation, startTime, endLocation, endTime);
+};
+
+var reorganisePerson = function(person) {
+	person.dayJourneys = [];
+	var journeyIndex = 0, day, numJourneys = person.journeys.length, currentJourney;
+	for(var i = 0; i < numDays; i++) {
+		person.dayJourneys[i] = [];
+		currentJourney = person.journeys[journeyIndex];
+		day = currentJourney.startTime
+				? currentJourney.startTime.day
+				: currentJourney.endTime.day;
+		while(day == i) {
+			person.dayJourneys[i].push(person.journeys[journeyIndex]);
+			journeyIndex++;
+			if(journeyIndex == numJourneys) {
+				break;
+			}
+			day = person.journeys[journeyIndex].startTime
+				? person.journeys[journeyIndex].startTime.day
+				: person.journeys[journeyIndex].endTime.day;
+		}
+		if(journeyIndex == numJourneys) {
+			break;
+		}
+	}
+	delete person.journeys;
+};
+
+function stuff() {
+	var people = [], journeyObject, currentJourney, journey1, journey2, firstJourney = journeys[0], currentPerson;
+	journeyObject = convertJourney(firstJourney);
+	currentPerson = new Person(firstJourney.RFID_TAG_UID, journeyObject);
+	people.push(currentPerson);
+	for(var journey = 1; journey < numJourneys; journey++) {
+		currentJourney = journeys[journey];
+		if(currentPerson.rfid == currentJourney.RFID_TAG_UID) {
+			journeyObject = convertJourney(currentJourney);
+			if(journeyObject.startTime && journeyObject.startTime.day != journeyObject.endTime.day)
+			{
+				journey1 = new Journey(journeyObject.startLocation, journeyObject.startTime, null, null);
+				journey2 = new Journey(null, null, journeyObject.endLocation, journeyObject.endTime);
+				currentPerson.journeys.push(journey1);
+				currentPerson.journeys.push(journey2);
+			} else {
+				currentPerson.journeys.push(journeyObject);
+			}
+		} else if(currentJourney.end_location) {
+			reorganisePerson(currentPerson);
+			journeyObject = convertJourney(currentJourney);
+			currentPerson = new Person(currentJourney.RFID_TAG_UID, journeyObject)
+			people.push(currentPerson);
+		}
+	}
+	reorganisePerson(currentPerson);
+}
+
+stuff();
 
 var play = 0;
 var started = false;
