@@ -4,5 +4,5 @@ var stages = [
     new Stage("The Street Party", "THE STREET PARTY", 654, 373),
     new Stage("The Forest Club", "THE FOREST PARTY", 511, 627),
     new Stage("The Fun Hous", "THE FUNHAUS", 890, 410),
-    new Stage("The Bruck'n Stadl", "THE BRÜCK%uFFFDN STADL", 90, 369)
+    new Stage("The Bruck'n Stadl", "THE BRUCKFFFDN STADL", 90, 369)
 ];

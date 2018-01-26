@@ -9,23 +9,25 @@
 		<link rel="stylesheet" href="css/marmoset.css">	
 	</head>
 	<body style = "background-color: rgb(16, 93, 171);">
-		<div class="container">
+			<div class="container">
 			<div class="row justify-content-center">
-				<div class="jumbotron">					
 					<img src="Images/snowbombing_logo.png">
-				</div>
 			</div>
-			<div class="row">
-				<div class="col">
-					<div id="gameHolder"></div>					
-				</div>
-				<div class="col">
-					<button style = "border-radius: 8px; background-color: rgb(255, 255, 255);" onclick="start()">
-						<img src = "/Images/Play_Sprite.png" /> 
-					</button>
-					<div id="stage"></div>
-				</div>
-			</div>
+			
+					<div class="row">
+							<div class="col-sm-6" style="width:998px">
+									<div id="gameHolder" style="width:998px"></div>	
+							</div>
+							<div class="col-sm-3" >
+								<div class="right-col">
+									<button style = "border-radius: 8px; background-color: rgb(255, 255, 255);" onclick="start()">
+											<img src = "/Images/Play_Sprite.png" /> 
+										</button>
+										<h2 id="stage"></h2>
+										<div id="performances"></div>
+									</div>
+							</div>
+						  </div>
 		</div>
 
 		<script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
@@ -35,6 +37,7 @@
 		<script src="Scripts/Stage.js"></script>
 		<script src="Scripts/stages.js"></script>
 		<script src="Scripts/Person.js"></script>
+		<script src="Scripts/performances.js"></script>
 		<script src="Scripts/main.js"></script>
 	</body>
 </html>

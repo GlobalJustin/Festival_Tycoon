@@ -34,6 +34,43 @@ function create() {
 			//do whatever with the result    
 			if (inside) {
 				$("#stage").text(stage.name);
+			
+				var stagePerformances = performances.filter(function (item) {
+					return item.PERFORMANCE_LOCATION == stage.dataName;
+				});
+
+				stagePerformances.sort(function (a, b) {
+					if (a.DATE < b.DATE) {
+						return -1;
+					} 
+					if (a.DATE > b.DATE) {
+						return 1;
+					} 
+
+					var nameA = a.ShowStartTime.toUpperCase(); // ignore upper and lowercase
+					var nameB = b.ShowStartTime.toUpperCase(); // ignore upper and lowercase
+					if (nameA < nameB) {
+					  return -1;
+					}
+					if (nameA > nameB) {
+					  return 1;
+					}
+				  
+					// names must be equal
+					return 0;
+				});
+				$("#performances").text("");
+				$.each(stagePerformances, function(index, value){
+					
+					$("#performances").append("Day " + DateToDay(value.DATE) + " " + value.ShowStartTime.substring(0, 5) + " " + value.PERFORMANCE + '<br>');
+				});
+
+				function DateToDay(date) {
+					return date.substring(0,2);					
+				}
+
+				// $("#performances").text(names);
+				
 			}
 		}
 	});
