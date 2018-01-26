@@ -90,11 +90,12 @@ function start() {
 	if (started == false) {
 		started = true;
 		play = 1;
-		if (play == 0);
-		for (i = 0; i < randomPeopleCount; i++) {
-			var randomStage = Math.floor((Math.random() * 6));
-			people[i].moveToStage(stages[randomStage], Math.random() * 20000);
-		}
+		
+		currentDay = 0;
+		currentTime = 0;
+		
+		getCurrentDayJourneys();
+		
 		$("#playButton").attr("src","Images/Pause_Sprite.png");
 	} else {
 		if (play == 0) {
@@ -107,10 +108,6 @@ function start() {
 			$("#playButton").attr("src","Images/Play_Sprite.png");
 		}
 	}
-	currentDay = 0;
-	currentTime = 0;
-	
-	getCurrentDayJourneys();
 }
 
 var getCurrentDayJourneys = function() {
